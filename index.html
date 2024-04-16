@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FETCH A DOG 🐶!</title>
+    <style>
+        body {
+            background-color: #414141;
+            margin: 0;
+            padding: 0;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #img {
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 11px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: orangered;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: teal;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #008080;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>DOG API RESPONSE!</h1>
+        <div id="img">
+            <img src="" alt="Loading....">
+        </div>
+        <button>FETCH A DOG 🐶</button>
+    </div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const img = document.querySelector('img');
+            fetchDogImage(img);
+
+            const btn = document.querySelector('button');
+            btn.addEventListener("click", function() {
+                fetchDogImage(img);
+            });
+        });
+
+        function fetchDogImage(imgElement) {
+            fetch('https://dog.ceo/api/breeds/image/random')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    imgElement.src = data.message;
+                })
+                .catch(error => console.error('Error fetching dog image:', error));
+        }
+    </script>
+</body>
+</html>
